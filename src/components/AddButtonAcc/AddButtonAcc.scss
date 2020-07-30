@@ -1,0 +1,23 @@
+.add__button {
+    &__snippet {
+        margin-top: 15px;
+        width: 500px;
+        height: 150px;
+        background: rgb(253, 244, 244);
+        border-radius: 10px;
+        position: absolute;
+        padding: 27px 80px;
+        &__icon {
+            position: absolute;
+            right: -10px;
+            top: -10px;
+            cursor: pointer;
+        }
+        .button {
+            width: 100%;
+            margin-top: 10px;
+            height: 40px;
+            cursor: pointer;
+        }
+    }
+}
