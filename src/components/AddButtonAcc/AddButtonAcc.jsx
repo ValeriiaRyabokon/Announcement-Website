@@ -23,7 +23,7 @@ const AddButtonAcc = ({ items, onAdd }) => {
       .post("http://localhost:3001/announcments", {
         name: inputTitleValue,
         time: time,
-        details: inputDetailsValue
+        detail: inputDetailsValue
       })
       .then(({data}) => {
         onAdd(data)

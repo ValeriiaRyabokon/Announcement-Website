@@ -6,24 +6,19 @@ import "../../index.scss";
 import iconSearch from "../../assets/img/iconSearch.svg";
 import iconClose from "../../assets/img/iconeClose.png";
 
-export default function Search({ lists }) {
+export default function Search({searchList}) {
   const [inputSearchValue, setInputSearchValue] = useState("");
-  
-  const [searchAccouncment, setSearchAccouncment] = useState(null);
- 
+
+  const [searchAccouncment, setSearchAccouncment] = useState([]);
 
   useEffect(() => {
+    console.log(inputSearchValue);
+    setSearchAccouncment([]);
     axios.get("http://localhost:3001/announcments").then(({ data }) => {
-      data.filter(item => {
-        if (item.name === inputSearchValue) {
-          setSearchAccouncment(item);
-        }
-        return item;
-      });
+      let arr = data.filter(item => item.name.indexOf(inputSearchValue) + 1);
+      setSearchAccouncment(arr.slice(0,3));
     });
   }, [inputSearchValue]);
-  
- 
 
   return (
     <div className="search">
@@ -33,9 +28,13 @@ export default function Search({ lists }) {
         type="text"
         placeholder="Введіть дані для пошуку"
       />
-     
-      {searchAccouncment && inputSearchValue &&(
-        <div className="search__content">{searchAccouncment.name}</div>
+
+      {searchAccouncment.length !== 0 && inputSearchValue && (
+        <div className="search__content">
+          {searchAccouncment.map(e => (
+            <div key={e.id} onClick={()=>searchList(searchAccouncment, e.id)}>{e.name}</div>
+          ))}
+        </div>
       )}
     </div>
   );
