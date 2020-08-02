@@ -4,7 +4,7 @@
         margin-top: 10px;
         height: 25px;
         cursor: pointer;
-        background: rgba(138, 159, 197, 0.952);
+        background: #b9c4d5;
         border-radius: 4px;
         color: #fff;
         padding: 20px 30px;
@@ -12,15 +12,11 @@
         justify-content: space-around;
         align-items: center;
         border-color: rgba(138, 159, 197, 0.952);
-        img {
-            width: 20px;
-            height: 20px;
-        }
         &:hover {
-            background: rgb(132, 162, 219);
+            background: #6783b78a;
         }
         &:active {
-            background: rgb(108, 142, 204);
+            background: #6584be85
         }
     }
     &__snippet {
@@ -31,11 +27,13 @@
         border-radius: 10px;
         position: absolute;
         padding: 27px 80px;
-        &__icon {
+        img {
             position: absolute;
             right: -10px;
             top: -10px;
             cursor: pointer;
+            width: 20px;
+            height: 20px;
         }
     }
 }

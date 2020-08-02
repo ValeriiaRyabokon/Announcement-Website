@@ -4,7 +4,7 @@ import "./AddButtonAcc.scss";
 import "../../index.scss";
 
 import iconPlus from "../../assets/img/iconPlus.png";
-import IconClose from "../../assets/img/iconeClose.png";
+import IconClose from "../../assets/img/iconDelete.png";
 
 const AddButtonAcc = ({ onAdd }) => {
   const [visibleAddButton, setVisibleAddButton] = useState(false);
@@ -12,10 +12,6 @@ const AddButtonAcc = ({ onAdd }) => {
   const [inputDetailsValue, setInputDetailsValue] = useState("");
 
   const addAccouncment = () => {
-    if (!inputDetailsValue) {
-      alert("Hey!");
-      return;
-    }
     const time = new Date().toLocaleDateString();
 
     axios
@@ -35,7 +31,7 @@ const AddButtonAcc = ({ onAdd }) => {
     <div className="add__button">
       {visibleAddButton ? (
         <div className="add__button__snippet">
-          <div className="add__button__snippet__icon">
+          <div>
             <img
               onClick={() => {
                 setVisibleAddButton(false);
@@ -51,14 +47,14 @@ const AddButtonAcc = ({ onAdd }) => {
             onChange={e => setInputTitleValue(e.target.value)}
             className="field"
             type="text"
-            placeholder="Введіть назву оголошення"
+            placeholder="new announcment's title"
           />
           <input
             value={inputDetailsValue}
             onChange={e => setInputDetailsValue(e.target.value)}
             className="field"
             type="text"
-            placeholder="Введіть інформацію про оголошення"
+            placeholder="new announcment's description"
           />
           <button onClick={addAccouncment} className="button--add">
             Додати
@@ -70,7 +66,7 @@ const AddButtonAcc = ({ onAdd }) => {
           onClick={() => setVisibleAddButton(!visibleAddButton)}
         >
           <img src={iconPlus} alt="icon Megafone" />
-          <span>Додати оголошеня</span>
+          <span>Add new announcement</span>
         </div>
       )}
     </div>

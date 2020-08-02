@@ -1,100 +1,118 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import "./AccouncmentContent.scss";
 import axios from "axios";
-import "../../index.scss";
 import iconDelete from "../../assets/img/iconDelete.png";
 import iconChange from "../../assets/img/iconChange.png";
-import iconDetail from "../../assets/img/iconSearch.svg";
+import iconDetail from "../../assets/img/iconSearch.png";
 
-const AccouncmentContent = ({ items, onEdit, onDelete, searchList }) => {
-  const [visibleDetails, setVisibleDetails] = useState(false);
-  const [inputNameValue, setInputNameValue] = useState("");
-  const [visibleValue, setVisibleValue] = useState(false);
+const AccouncmentContent = ({ items, onEdit, onDelete, searchList,visible, setVisible}) => {
+   const [inputNameValue, setInputNameValue] = useState("");
+  const [inputDetailValue, setInputDetailValue] = useState("");
+
   const deleteAccouncment = item => {
     if (window.confirm("Ви дійсно хочете видалити це оголошення?")) {
-      axios.delete("http://localhost:3001/announcments/" + item.id).then(() => {
+      axios.delete(`http://localhost:3001/announcments/${item.id}`).then(() => {
         onDelete(item.id);
       });
     }
   };
 
+  const visibleItem = (obj, id) => {
+    searchList(obj, id);
+    setVisible({...visible, visibleValue: false,visibleDetails: true});
+
+  };
+
+
+
   return (
     <div className="content">
-      <ul>
-        {items.map(item => (
-          <li key={item.id}>
-            <div>
-              <span className="text">Назва:{item.name}</span>
-              
-              {visibleValue && (
-                <div>
-                  <input
-                    type="text"
-                    value={inputNameValue}
-                    onChange={e => setInputNameValue(e.target.value)}
-                  />
-                  <button
-                    onClick={() =>
-                      onEdit(item, item.id, "name", inputNameValue)
-                    }
-                    className="button"
-                  >
-                    Змінити
-                  </button>
-                </div>
-              )}
-               <span className="day">Час додавання: {item.time}</span>
-              <img
-                src={iconDelete}
-                onClick={() => deleteAccouncment(item)}
-                alt="Icon Delete"
-              />
-              <img
-                src={iconChange}
-                onClick={() => setVisibleValue(true)}
-                alt="Icon Change"
-              />
-              <img
-                src={iconDetail}
-                onClick={() => setVisibleDetails(!visibleDetails)}
-                alt="Icon Change"
-              />
-            </div>
-
-            {visibleDetails && item.id && (
-              <div>
-                <span>Опис:{item.detail}</span>
-                <img
-                  src={iconChange}
-                  alt="Icon Change"
-                  onClick={() => setVisibleValue(!visibleValue)}
-                />
-                {visibleValue && (
-                  <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Time</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {items.map(item => (
+            <tr key={item.id}>
+              <td className="name">
+                <h4>{item.name}</h4>
+                {visible.visibleValue && (
+                  <div className="change-form">
                     <input
                       type="text"
                       value={inputNameValue}
                       onChange={e => setInputNameValue(e.target.value)}
+                      placeholder="new title"
                     />
                     <button
                       onClick={() =>
-                        onEdit(item, item.id, "detail", inputNameValue)
+                        onEdit(item.id, "name", inputNameValue)
                       }
                       className="button"
                     >
-                      Змінити
+                     Change
                     </button>
                   </div>
                 )}
-                
-              </div>
-            )}
-           
-         
-            
-          </li>
-        ))}
-      </ul>
+                {visible.visibleDetails && (
+                  <div>
+                    <span>Description:{item.detail}</span>
+                    <span className="icon">
+                      <img
+                        src={iconChange}
+                        alt="Icon Change"
+                        onClick={() => setVisible({...visible,visibleValue:true})}
+                      />
+                      
+                        <img
+                          src={iconDelete}
+                          onClick={() => deleteAccouncment(item)}
+                          alt="Icon Delete"
+                        />
+                     
+                    </span>
+                    {visible.visibleValue && (
+                      <div className="change-form">
+                        <input
+                          type="text"
+                          value={inputDetailValue}
+                          onChange={e => setInputDetailValue(e.target.value)}
+                          placeholder="new description"
+                        />
+                        <button
+                          onClick={() =>
+                            onEdit(item.id, "detail", inputDetailValue)
+                          }
+                          className="button"
+                        >
+                          Змінити
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </td>
+              <td className="content__time">{item.time}</td>
+              {visible.visibleSearch && (
+                <td>
+                  <img
+                    src={iconDetail}
+                    onClick={() => visibleItem(item, item.id)}
+                    alt="Icon "
+                  />
+                </td>
+              )}
+            </tr>
+          ))}
+        
+        </tbody>
+      </table>
     </div>
   );
 };

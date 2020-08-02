@@ -11,12 +11,12 @@
                     align-items: center;
                     cursor: pointer;
                     padding: 5px 85px;
-                    background: rgba(210, 220, 219, 0.69);
+                    background: #d5deefd9;
                     width: 200px;
                     height: 40px;
                     border-radius: 5px;
                     &:hover {
-                        background: rgba(208, 236, 234, 0.69);
+                        background: #becce7d9;
                         color: #414242;
                     }
                     i {
@@ -28,8 +28,5 @@
                         color: #626364;
                         white-space: nowrap;
                     }
-                }
-                &__add__acc {
-                    background-color: rgba(176, 204, 221, 0.69);
                 }
             }

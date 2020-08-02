@@ -6,13 +6,13 @@
         position: absolute;
         width: 350px;
         height: 40px;
-        left: 585px;
+        left: 610px;
         padding: 5px 12px;
-        background: rgba(229, 241, 240, 0.52);
+        background: #d5deefd9;
         border-radius: 5px;
         cursor: pointer;
         &:hover {
-            background: rgba(207, 240, 237, 0.52);
+            background: #becbe2d9;
             border: 1px solid #f1f7f8;
         }
     }

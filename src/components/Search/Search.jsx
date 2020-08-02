@@ -1,32 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+//import useDebounce from "./use-debounce";
 import axios from "axios";
+import _ from "lodash";
+
 import "./Search.scss";
 import "../AddButtonAcc/AddButtonAcc.scss";
 import "../../index.scss";
 
-export default function Search({ searchLists}) {
+export default function Search({ searchLists, visibleLists }) {
   const [inputSearchValue, setInputSearchValue] = useState("");
 
-  const [searchAccouncment, setSearchAccouncment] = useState([]);
-
-  useEffect(() => {
-    setSearchAccouncment([]);
+  const onSearch = text => {
     axios.get("http://localhost:3001/announcments").then(({ data }) => {
-      let arr = data.filter(item => item.name.indexOf(inputSearchValue)+1);
-      setSearchAccouncment(arr);
-      searchLists(searchAccouncment.slice(0, 3))
-
+      let arr = data.filter(item => item.name.indexOf(text) + 1);
+      searchLists(arr.slice(0, 3));
+      if (!text) {
+        visibleLists();
+        return;
+      }
     });
-  }, [inputSearchValue]);
+  };
 
+  const debounceHandleChange = useCallback(
+    _.debounce(data => onSearch(data), 1000),
+    []
+  );
+
+  const onChange = e => {
+    setInputSearchValue(e.target.value);
+    debounceHandleChange(e.target.value);
+  };
 
   return (
     <div className="search">
       <input
         value={inputSearchValue}
-        onChange={e => setInputSearchValue(e.target.value)}
+        onChange={onChange}
         type="text"
-        placeholder="Введіть дані для пошуку"
+        placeholder="Search announcements by title"
       />
     </div>
   );
