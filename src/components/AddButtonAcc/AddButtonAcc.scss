@@ -1,4 +1,28 @@
 .add__button {
+    .button--add {
+        width: 200px;
+        margin-top: 10px;
+        height: 25px;
+        cursor: pointer;
+        background: rgba(138, 159, 197, 0.952);
+        border-radius: 4px;
+        color: #fff;
+        padding: 20px 30px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        border-color: rgba(138, 159, 197, 0.952);
+        img {
+            width: 20px;
+            height: 20px;
+        }
+        &:hover {
+            background: rgb(132, 162, 219);
+        }
+        &:active {
+            background: rgb(108, 142, 204);
+        }
+    }
     &__snippet {
         margin-top: 15px;
         width: 500px;
@@ -11,12 +35,6 @@
             position: absolute;
             right: -10px;
             top: -10px;
-            cursor: pointer;
-        }
-        .button {
-            width: 100%;
-            margin-top: 10px;
-            height: 40px;
             cursor: pointer;
         }
     }

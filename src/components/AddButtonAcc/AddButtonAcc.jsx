@@ -3,11 +3,10 @@ import axios from "axios";
 import "./AddButtonAcc.scss";
 import "../../index.scss";
 
-import Accouncment from "../Accouncment/Accouncment";
 import iconPlus from "../../assets/img/iconPlus.png";
 import IconClose from "../../assets/img/iconeClose.png";
 
-const AddButtonAcc = ({ items, onAdd }) => {
+const AddButtonAcc = ({ onAdd }) => {
   const [visibleAddButton, setVisibleAddButton] = useState(false);
   const [inputTitleValue, setInputTitleValue] = useState("");
   const [inputDetailsValue, setInputDetailsValue] = useState("");
@@ -25,8 +24,8 @@ const AddButtonAcc = ({ items, onAdd }) => {
         time: time,
         detail: inputDetailsValue
       })
-      .then(({data}) => {
-        onAdd(data)
+      .then(({ data }) => {
+        onAdd(data);
       });
 
     setInputTitleValue("");
@@ -61,20 +60,18 @@ const AddButtonAcc = ({ items, onAdd }) => {
             type="text"
             placeholder="Введіть інформацію про оголошення"
           />
-          <button onClick={addAccouncment} className="button">
+          <button onClick={addAccouncment} className="button--add">
             Додати
           </button>
         </div>
       ) : (
-        <Accouncment
+        <div
+          className="button--add"
           onClick={() => setVisibleAddButton(!visibleAddButton)}
-          items={[
-            {
-              icon: <img src={iconPlus} alt="icon Megafone" />,
-              name: "Додати оголошення"
-            }
-          ]}
-        />
+        >
+          <img src={iconPlus} alt="icon Megafone" />
+          <span>Додати оголошеня</span>
+        </div>
       )}
     </div>
   );
